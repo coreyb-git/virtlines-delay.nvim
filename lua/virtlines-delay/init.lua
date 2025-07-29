@@ -3,7 +3,7 @@ local M = {}
 local const_plugin_name = "virtlines-delay"
 local config = require(const_plugin_name .. ".config")
 
-local const_augroup = "vl_delay"
+local const_augroup = "v_delay"
 
 local t = vim.uv.new_timer()
 
@@ -11,21 +11,23 @@ local last_line = -1
 local original_config
 local disabled = false
 
-local function disable_vl()
+local function disable_v()
 	if disabled == false then
 		disabled = true
 		-- save format and original setting for later
 		original_config = vim.diagnostic.config()
 		vim.diagnostic.config({ virtual_lines = false })
+		vim.diagnostic.config({ virtual_text = true })
 	end
 end
 
-local function enable_vl()
+local function enable_v()
 	if disabled then
 		disabled = false
 		-- merge original virtual_lines settings with current config
+		--vim.notify(vim.inspect(original_config))
 		local new_conf = vim.tbl_deep_extend("keep", original_config, { virtual_lines = { current_line = true } })
-		vim.diagnostic.config({ virtual_lines = new_conf.virtual_lines })
+		vim.diagnostic.config({ virtual_text = new_conf.virtual_text, virtual_lines = new_conf.virtual_lines })
 	end
 end
 
@@ -35,7 +37,7 @@ local function start_timer()
 			config.delay,
 			0,
 			vim.schedule_wrap(function()
-				enable_vl()
+				enable_v()
 			end)
 		)
 	end
@@ -45,7 +47,7 @@ local function check_moved()
 	local currentline = vim.fn.getcurpos(0)[2]
 	if currentline ~= last_line then
 		last_line = currentline
-		disable_vl()
+		disable_v()
 		if t ~= nil then
 			t:stop()
 		end
