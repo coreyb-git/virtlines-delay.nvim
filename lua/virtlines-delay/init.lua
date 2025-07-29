@@ -1,6 +1,7 @@
 local M = {}
 
-local config = require("virtuallines-delay.config")
+local const_plugin = "virtlines-delay"
+local config = require(const_plugin .. ".config")
 local const_augroup = "vl_delay"
 local t = vim.uv.new_timer()
 local lastline = -1
