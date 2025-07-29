@@ -1,16 +1,16 @@
 # Virtual_Lines Delay
 
-NeoVim will wait until you settle on a specific line before it shows
+Intended for use with vim.diagnostic.config({virtual_lines={current_line=true}}),
+and respects formatting being performed by other plugins.
+
+With this plugin NeoVim will wait until you settle on a line before it shows
 its virtual_lines diagnostics.
-
-Without a delay each virtual_line instantly pops-in, moving all
+Without the delay each virtual_line instantly pops-in as you navigate, moving all
 text below it further downwards.
-This constant dynamic shifting of text can be disorienting when
-navigating through a file.
+This constant dynamic shifting of text can be disorienting.
 
-By adding a delay before revealing the current lines virtual_lines
-diagnostics this plugin eliminates that disorientation.
-Nothing pops-in until you finally stop on a line.
+By adding a delay before revealing the virtual_lines this disorientation
+is eliminated - Nothing pops-in until you have stopped vertical navigation.
 
 Using Lazy plugin manager:
 
