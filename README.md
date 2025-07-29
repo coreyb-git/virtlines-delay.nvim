@@ -8,9 +8,6 @@ navigate to different lines, which can be disorienting.
 Using Lazy plugin manager:
 
 ```Lua
--- Comment-out if another plugin handles virtual_lines formatting
-vim.diagnostic.config({virtual_lines={current_line=true}})
-
 return {
   "coreyb-git/virtlines-delay.nvim",
   lazy=false,

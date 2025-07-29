@@ -55,6 +55,13 @@ local function check_moved()
 end
 
 function M.setup(opts)
+	-- ensure virtual_lines are enabled
+	-- but don't mess it up if format is set
+	local current_config = vim.diagnostic.config()
+	if current_config.virtual_lines == false then
+		vim.diagnostic.config({ virtual_lines = true })
+	end
+
 	config = vim.tbl_deep_extend("keep", opts, config)
 	local augroup = vim.api.nvim_create_augroup(const_augroup, { clear = true })
 	vim.api.nvim_create_autocmd({ "CursorMoved", "CursorHold" }, {
