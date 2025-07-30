@@ -12,6 +12,8 @@ This constant dynamic shifting of text can be disorienting.
 By adding a delay before revealing the virtual_lines this disorientation
 is eliminated - Nothing pops-in until you have stopped vertical navigation.
 
+## Install
+
 Using Lazy plugin manager:
 
 ```Lua
@@ -22,4 +24,10 @@ return {
     delay = 200
   },
 }
+```
+
+Else call:
+
+```Lua
+require('virtlines-delay').setup()
 ```
