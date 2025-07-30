@@ -19,7 +19,7 @@ return {
   "coreyb-git/virtlines-delay.nvim",
   lazy=false,
   opts = {
-    delay = 1000
+    delay = 200
   },
 }
 ```

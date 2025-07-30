@@ -59,7 +59,10 @@ end
 function M.setup(opts)
 	-- ensure virtual_lines are enabled
 	-- but don't mess it up if format is set
-	local current_config = vim.diagnostic.config()
+	local current_config = vim.diagnostic.config() or {}
+	if current_config.virtual_lines == nil then
+		current_config.virtual_lines = false
+	end
 	if current_config.virtual_lines == false then
 		vim.diagnostic.config({ virtual_lines = true })
 	end
