@@ -17,7 +17,6 @@ local function disable_v()
 		-- save format and original setting for later
 		original_config = vim.diagnostic.config()
 		vim.diagnostic.config({ virtual_lines = false })
-		vim.diagnostic.config({ virtual_text = true })
 	end
 end
 
@@ -25,7 +24,6 @@ local function enable_v()
 	if disabled then
 		disabled = false
 		-- merge original virtual_lines settings with current config
-		--vim.notify(vim.inspect(original_config))
 		local new_conf = vim.tbl_deep_extend("keep", original_config, { virtual_lines = { current_line = true } })
 		vim.diagnostic.config({ virtual_text = new_conf.virtual_text, virtual_lines = new_conf.virtual_lines })
 	end
@@ -44,16 +42,18 @@ local function start_timer()
 end
 
 local function check_moved()
-	local currentline = vim.fn.getcurpos(0)[2]
+	local currentline = vim.fn.line(".")
 	if currentline ~= last_line then
 		last_line = currentline
 		disable_v()
 		if t ~= nil then
 			t:stop()
 		end
-	else
-		start_timer()
+
+		return
 	end
+
+	start_timer()
 end
 
 function M.setup(opts)
